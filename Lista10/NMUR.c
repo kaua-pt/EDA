@@ -77,7 +77,7 @@ void removeRep(int *vetor, int f, int i)
 
 int main()
 {
-    int i, tam;
+    int i, tam, h;
     int *vetor;
 
     scanf("%d", &tam);
@@ -91,5 +91,9 @@ int main()
     mergeSort(vetor, 0, tam - 1);
     removeRep(vetor, tam - 1, 0);
 
+    for (h = 0; h < tam; h++)
+    {
+        printf("%d ", vetor[h]);
+    }
     return 0;
 }

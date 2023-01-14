@@ -1,26 +1,19 @@
 #include <stdio.h>
+#define EXC(A, B) \
+    int tt = A;   \
+    A = B;        \
+    B = tt
 
-// trocar cartas sempre que valores consecutivos estiverem invertidos
-// demora mais que o selection
-
-void troca(int *v, int *v2)
+void bubbleSort(int *v, int l, int r)
 {
-    int aux;
-    aux = *v;
-    *v = *v2;
-    *v2 = aux;
-}
-
-void BubbleSort(int *v, int n)
-{
-    int i, j, min, t;
-    for (i = 0; i < n - 1; i++)
+    int i, j;
+    for (i = l; i < r; i++)
     {
-        for (j = n - 1; j > i; j--)
+        for (j = r; j > l; j--)
         {
-            if (v[j] < v[j - 1])
+            if (LESS(v[j], v[j - 1]))
             {
-                troca(&v[j], &v[j - 1]);
+                EXC(v[j], v[j - 1]);
             }
         }
     }
@@ -29,6 +22,7 @@ void BubbleSort(int *v, int n)
 int main()
 {
 
-    int vetor = {0, 1, 2, 3, 5, 6, 7, 8, 9};
+    int vetor = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+    bubbleSort(vetor, 0, 10);
     return 0;
 }

@@ -4,39 +4,40 @@
     A = B;        \
     B = tt
 
-// garantir que meu primeiro elemento é o menor
-// inserir no que ele for maior que
-
-int main()
+void insertionSort(int *vetor, int l, int r)
 {
-    int vetor[50000], i = 0, j, k, l, minor, aux;
+    int minor, k, aux, i;
 
-    while (scanf("%d", &vetor[i]) != EOF)
-        i++;
-
-    minor = 0;
-    for (j = 1; j < i; j++)
+    for (i = r - 1; i > l; i--)
     {
-        if (vetor[minor] > vetor[j])
+        if (vetor[i] < vetor[i - 1])
         {
-            minor = j;
+            EXC(vetor[i - 1], vetor[i]);
         }
     }
-    EXC(vetor[0], vetor[minor]);
 
-    // pegar na mao
-    for (k = 2; k < i; k++)
+    for (k = 2; k < r; k++)
     {
         int u = k;
         aux = vetor[u];
 
-        while (aux <= vetor[u - 1])
+        while (aux < vetor[u - 1])
         {
             vetor[u] = vetor[u - 1];
             u--;
         }
         vetor[u] = aux;
     }
+}
+
+int main()
+{
+    int vetor[50000], i = 0, l;
+
+    while (scanf("%d", &vetor[i]) != EOF)
+        i++;
+
+    insertionSort(vetor, 0, i);
 
     for (l = 0; l < i; l++)
     {

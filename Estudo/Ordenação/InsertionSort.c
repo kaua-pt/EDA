@@ -1,4 +1,8 @@
 #include <stdio.h>
+#define EXC(A, B) \
+    int tt = A;   \
+    A = B;        \
+    B = tt
 
 // consideramos que já há uma ordenação e inserir um novo elemento em ordem
 // mais rapido que o selection
@@ -11,20 +15,25 @@ void troca(int *v, int *v2)
     *v2 = aux;
 }
 
-void insertionSort(int *v, int n)
+void insertionSort(int *v, int l, int r)
 {
-    int i, j, min, t;
-    for (i = 0; i < n; i++)
-    {
-        t = v[i];
-        for (j = i; j > 0 && t < v[j - 1]; j--)
+    int i;
+    for (i = r - 1; i > l; i--)
+        if (v[i] < v[i - 1])
         {
-            if (v[j] < v[j - 1])
-            {
-                troca(&v[j], &v[j - 1]);
-            }
-            v[j] = t;
+            EXC(v[i], v[i - 1]);
         }
+
+    for (i = l + 2; i < r; i++)
+    {
+        int j = i;
+        int aux = v[i];
+        while (aux < v[j - 1])
+        {
+            v[j] = v[j - 1];
+            j--;
+        }
+        v[j] = aux;
     }
 }
 
