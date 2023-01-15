@@ -177,16 +177,44 @@ int main()
         printf("Segundo turno\n");
     }
 
+    int ka;
+    for (ka = 0; ka < ts - 1; ka++)
+    {
+        if (sena[ka].votos == sena[ka + 1].votos && sena[ka + 1].num > sena[ka].num)
+        {
+            EXC(sena[ka], sena[ka + 1]);
+        }
+    }
     for (i = 0; i < sen; i++)
     {
         printf("%d", sena[i].num);
         i + 1 == sen ? printf("\n") : printf(" ");
     }
+
+    int kb;
+    for (kb = 0; kb < tf - 1; kb++)
+    {
+        if (dfed[kb].votos == dfed[kb + 1].votos && dfed[kb + 1].num > dfed[kb].num)
+        {
+            EXC(dfed[kb], dfed[kb + 1]);
+        }
+    }
+
     for (j = 0; j < fed; j++)
     {
         printf("%d", dfed[j].num);
         j + 1 == fed ? printf("\n") : printf(" ");
     }
+
+    int kc;
+    for (kc = 0; kc < te - 1; kc++)
+    {
+        if (dest[kc].votos == dest[kc + 1].votos && dest[kc + 1].num > dest[kc].num)
+        {
+            EXC(dest[kc], dest[kc + 1]);
+        }
+    }
+
     for (k = 0; k < est; k++)
     {
         printf("%d", dest[k].num);

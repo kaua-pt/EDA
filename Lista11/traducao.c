@@ -60,20 +60,16 @@ int main()
 
         do
         {
-            scanf(" %s", trad[i].jap);
-            scanf(" %s", trad[i].br);
+            scanf("%s[^( |\n)]", trad[i].jap);
+            scanf("%s[^( |\n)]", trad[i].br);
             i++;
         } while (i < dic);
 
-        printf("musc %d\n", musc);
         while (j < musc)
         {
-            printf("jotinha %d ", j);
-            printf("entrou \n");
-            scanf(" %s []", letra[j].jap);
+            scanf(" %s[^( |\n)]", letra[j].jap);
             j++;
         }
-        printf("salve");
         traducao(&trad, &letra, musc, dic);
 
         for (k = 0; k < musc; k++)
