@@ -60,14 +60,14 @@ int main()
 
         do
         {
-            scanf("%s[^( |\n)]", trad[i].jap);
-            scanf("%s[^( |\n)]", trad[i].br);
+            scanf("[^( |\n)]%s", trad[i].jap);
+            scanf("[^( |\n)]%s", trad[i].br);
             i++;
         } while (i < dic);
 
         while (j < musc)
         {
-            scanf(" %s[^( |\n)]", letra[j].jap);
+            scanf("[^( |\n)]%s", letra[j].jap);
             j++;
         }
         traducao(&trad, &letra, musc, dic);
