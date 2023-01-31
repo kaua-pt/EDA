@@ -12,14 +12,14 @@ typedef struct Pilha
 
 void criaPilha(Pilha *pilha, int s)
 {
-    pilha->v = malloc(sizeof(Pilha) * s);
+    pilha->v = malloc(sizeof(Item) * s);
     pilha->size = s;
-    pilha->elem = 0;
+    pilha->elem = -1;
 }
 
 int estaVazia(Pilha *pilha)
 {
-    return pilha->elem == 0;
+    return pilha->elem == -1;
 }
 
 int estaCheia(Pilha *pilha)
@@ -53,4 +53,12 @@ int desempilha(Pilha *pilha)
 void desalocaPilha(Pilha *pilha)
 {
     free(pilha);
+}
+
+void inverte(Pilha *pilha)
+{
+    int elem = pilha->elem;
+    while (elem--)
+    {
+    }
 }

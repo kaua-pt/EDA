@@ -1,11 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-typedef int Item;
+#include <string.h>
+
+typedef struct Item
+{
+    char name[27];
+    int len;
+} Item;
+
 typedef struct Node
 {
     Item c;
-    struct Node *next;
-    struct Node *prev;
+    Node *next;
+    Node *prev;
 } Node;
 
 typedef struct Head
@@ -61,26 +68,14 @@ int pushLink(Head *head, Item e)
 {
     if (head->size == 0)
     {
-        return pushFrist(head, e);
+        return pushFrist(&head, e);
     }
-    return pushToBack(head, e);
-}
-
-int popFristp(Head *head)
-{
-    Node *newBegin = head->begin->next;
-    printf(" %d,", head->begin->c);
-    free(head->begin);
-    newBegin->prev = NULL;
-    head->begin = newBegin;
-    head->size--;
-    return 0;
+    return pushToBack(&head, e);
 }
 
 int popFrist(Head *head)
 {
     Node *newBegin = head->begin->next;
-    printf(" %d,", head->begin->c);
     free(head->begin);
     newBegin->prev = NULL;
     head->begin = newBegin;
@@ -108,42 +103,42 @@ int popLink(Head *head)
     return 0;
 }
 
-void criaCartas(Head *head, int c)
+int solve(Head *head, char *input)
 {
-    int i = 1;
-    while (i++ <= c)
-        pushLink(head, i);
+    Item final[head->size];
+    Node *aux;
+    int i, j;
+    char myChar;
 
-    return;
-}
-
-void resolver(int c)
-{
-    Head *head;
-    createHead(&head);
-    criaCartas(&head, c);
-
-    // tira a primeira
-    printf("Cartas Descartadas:");
-    while (head->size > 1)
+    final[0] = head->begin->c;
+    // contador de final
+    for (i = 0; i < head->size; i++)
     {
-        printf("salve");
-        // tira primeira
-        popFristp(&head);
-        // de cima vai pra tras
-        Node *no = head->begin;
-        popFrist(&head);
-        pushToBack(&head, no);
+        aux = head->begin;
+        myChar = final[i].name[final[i].len];
+        // contador da lista
+        for (j = 0; j < head->size; j++)
+        {
+            if (myChar == aux->c.name[aux->c.len])
+            {
+                final[i + 1] = aux->c;
+            }
+            aux = aux->next;
+        }
     }
-    printf("\n");
-    printf("Carta restante: %d\n", head->begin->c);
-    return;
 }
 
 int main()
 {
-    int cartas;
-    scanf("%d", &cartas);
-    resolver(cartas);
+    Head head;
+    Item e;
+    createHead(&head);
+
+    while (scanf("%s", e.name) != EOF)
+    {
+        e.len = strlen(e.name);
+        pushLink(&head, e);
+    }
+
     return 0;
 }

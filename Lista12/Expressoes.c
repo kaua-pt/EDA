@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 typedef char Item;
 
 typedef struct Pilha

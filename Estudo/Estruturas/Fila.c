@@ -14,8 +14,8 @@ typedef struct Fila
 
 int iniciarFila(Fila *fila, int s)
 {
-    fila->v = malloc(sizeof(Fila) * s);
-    fila->i = 0;
+    fila->v = malloc(sizeof(Item) * s);
+    fila->i = -1;
     fila->f = 0;
     fila->size = s;
     fila->elem = 0;
@@ -50,4 +50,18 @@ int desenfila(Fila *fila)
 Item espia(Fila *fila)
 {
     return fila->v[fila->i];
+}
+
+int destroiFila(Fila *fila)
+{
+    free(fila->v);
+}
+
+void imprimeFilaAoContrario(Fila *fila)
+{
+    if (estaVazia(fila))
+        return;
+    int e = desenfila(fila);
+    imprimeFilaAoContrario(fila);
+    printf("%d\n", e);
 }

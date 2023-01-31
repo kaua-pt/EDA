@@ -11,8 +11,8 @@ typedef struct Node
 typedef struct Head
 {
     int size;
-    Node *begin;
-    Node *end;
+    struct Node *begin;
+    struct Node *end;
 } Head;
 
 int createHead(Head *head)
