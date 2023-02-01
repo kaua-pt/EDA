@@ -90,7 +90,7 @@ int main(){
     //colocando os outros e passando pela lista varias vezes
     for (int j = 0; j < numero_linhas; j++){
         for (int i = 0; i < numero_linhas; i++){
-            //so empilha a psita se o valor next dela for o mesmo do id do topo/ultimo valor empilhado 
+            //so empilha a pista se o valor next dela for o mesmo do id do topo/ultimo valor empilhado 
             if (pistas[i].next == pistas[fim_local].id){
                 empilha(&pilha, pistas[i]);
                 fim_local = i;
