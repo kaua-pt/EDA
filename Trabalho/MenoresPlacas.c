@@ -155,6 +155,7 @@ void print(Head *head, int n)
     }
 
     mergeSort(aux, 0, head->size - 1);
+
     for (j = 0; j < n; j++)
         printf("%d ", aux[j]);
 
