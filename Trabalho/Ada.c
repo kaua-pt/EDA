@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <stdio.h>
+#include <stdlib.h>
 typedef int Item;
 typedef struct Node
 {
@@ -68,7 +71,13 @@ int pushLink(Head *head, Item e)
 
 int popFrist(Head *head)
 {
+    if (head->size == 0)
+    {
+        printf("No job for Ada?\n");
+        return 1;
+    }
     Node *newBegin = head->begin->next;
+    printf("%d\n", head->begin->c);
     free(head->begin);
     newBegin->prev = NULL;
     head->begin = newBegin;
@@ -78,39 +87,69 @@ int popFrist(Head *head)
 
 int popLast(Head *head)
 {
+    if (head->size == 0)
+    {
+        printf("No job for Ada?\n");
+        return 1;
+    }
     Node *newLast = head->end->prev;
+
+    printf("%d\n", head->end->c);
+
     free(head->end->prev);
     head->end = newLast;
     head->size--;
     return 0;
 }
 
-int popLink(Head *head)
+int reverse(Head *head) {}
+
+int main()
 {
-    if (head->size == 1)
+    int q, i, n, flag = 0;
+    char com[1001];
+    Head head;
+    createHead(&head);
+
+    scanf("%d", &q);
+
+    for (i = 0; i < q; i++)
     {
-        popFrist(head);
-        return 0;
+        scanf("%s", com);
+        if (com[0] == 'b')
+            if (flag == 0)
+                popLast(&head);
+            else
+                popFrist(&head);
+        if (com[0] == 'f')
+            if (flag == 0)
+                popFrist(&head);
+            else
+                popLast(&head);
+        if (com[0] == 'p')
+        {
+            scanf("%d", &n);
+            if (flag == 0)
+                pushToBack(&head, n);
+            else
+                pushFrist(&head, n);
+        }
+        if (com[0] == 't')
+        {
+            scanf("%d", &n);
+            if (flag == 0)
+                pushFrist(&head, n);
+            else
+                pushToBack(&head, n);
+        }
+        if (com[0] == 'r')
+        {
+            if (flag == 0)
+                flag = 1;
+            if (flag == 1)
+                flag = 0;
+        }
     }
-    popLast(head);
+
     return 0;
-}
-
-int search(Head *head, Item e)
-{
-    Node *begin = head->begin;
-    while (begin->c != e)
-    {
-        if (begin->c == NULL)
-            return -1;
-        begin = begin->next;
-    }
-    return begin->c;
-}
-
-int contains(Head *head, Item e)
-{
-    if (search(head, e) != -1)
-        return 0;
-    return 1;
 }
