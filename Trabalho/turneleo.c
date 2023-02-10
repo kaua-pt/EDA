@@ -90,7 +90,7 @@ int main()
 
     //filaTemporaria
     queue fila;
-    fila = initialize(1000);
+    fila = initialize(1e6);
 
     //Pegando quais serao as cidade
     while (scanf("%s", &input) != EOF){
