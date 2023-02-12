@@ -1,184 +1,81 @@
 #include <stdio.h>
 #include <stdlib.h>
-typedef int Item;
+#define EXC(A, B) \
+    int tt = A;   \
+    A = B;        \
+    B = tt
 
-typedef struct Node
+void insertionSort(int *vetor, int l, int r)
 {
-    Item c;
-    struct Node *next;
-    struct Node *prev;
-} Node;
+    int minor, k, aux, i;
 
-typedef struct Head
-{
-    int size;
-    struct Node *begin;
-    struct Node *end;
-} Head;
-
-void merge(int *vetor, int i, int f, int m)
-{
-    int vetorAux[f - i + 1];
-    int Ai = i, Bi = m + 1, AUXi = 0, p;
-
-    while (Ai <= m && Bi <= f)
+    for (i = r - 1; i > l; i--)
     {
-        if (vetor[Ai] <= vetor[Bi])
+        if (vetor[i] < vetor[i - 1])
         {
-            vetorAux[AUXi++] = vetor[Ai++];
-        }
-        else
-        {
-            vetorAux[AUXi++] = vetor[Bi++];
+            EXC(vetor[i - 1], vetor[i]);
         }
     }
 
-    while (Ai <= m)
+    for (k = 2; k < r; k++)
     {
-        vetorAux[AUXi++] = vetor[Ai++];
-    }
-    while (Bi <= f)
-    {
-        vetorAux[AUXi++] = vetor[Bi++];
-    }
+        int u = k;
+        aux = vetor[u];
 
-    int v = 0;
-    for (p = i; p <= f; ++p)
-    {
-        vetor[p] = vetorAux[v++];
+        while (aux < vetor[u - 1])
+        {
+            vetor[u] = vetor[u - 1];
+            u--;
+        }
+        vetor[u] = aux;
     }
 }
 
-void mergeSort(int *vetor, int i, int j)
+// insere elementos no vetor, utilizando o
+// insertion em cada iteração
+int insere(int *v, int n2, int placas)
 {
-    if (i >= j)
-        return;
+    v[placas] = n2;
+    // aplica insertion nos dados
+    insertionSort(v, 0, placas + 1);
 
-    int meio = i + (j - i) / 2;
-    mergeSort(vetor, i, meio);
-    mergeSort(vetor, meio + 1, j);
-    merge(vetor, i, j, meio);
+    // trava o contador das placas em 100
+    if (++placas > 100)
+        placas = 100;
+
+    // retorna numero de placas
+    return placas;
 }
 
-int createHead(Head *head)
+// printar elementos na tela
+void printa(int *v, int n2, int placas)
 {
-    head->begin = NULL;
-    head->end = NULL;
-    head->size = 0;
-    return 0;
-}
-
-int pushFrist(Head *head, Item e)
-{
-    Node *node = malloc(sizeof(Node));
-    if (node == NULL)
-        return 1;
-
-    node->c = e;
-    node->next = NULL;
-    node->prev = NULL;
-
-    head->size++;
-    head->begin = node;
-    head->end = node;
-
-    return 0;
-}
-
-int pushToBack(Head *head, Item e)
-{
-    Node *node = malloc(sizeof(Node));
-    if (node == NULL)
-        return -1;
-
-    node->c = e;
-    node->prev = head->end;
-    node->next = NULL;
-
-    head->end->next = node;
-
-    head->size++;
-    head->end = node;
-    return 0;
-}
-
-int pushLink(Head *head, Item e)
-{
-    if (head->size == 0)
+    int i;
+    if (n2 > placas)
+        n2 = placas;
+    for (i = 0; i < n2; i++)
     {
-        pushFrist(head, e);
-        return;
+        printf("%d ", v[i]);
     }
-    pushToBack(head, e);
-}
-
-int popFrist(Head *head)
-{
-    Node *newBegin = head->begin->next;
-    free(head->begin);
-    newBegin->prev = NULL;
-    head->begin = newBegin;
-    head->size--;
-    return 0;
-}
-
-int popLast(Head *head)
-{
-    Node *newLast = head->end->prev;
-    free(head->end->prev);
-    head->end = newLast;
-    head->size--;
-    return 0;
-}
-
-int popLink(Head *head)
-{
-    if (head->size == 1)
-    {
-        popFrist(head);
-        return 0;
-    }
-    popLast(head);
-    return 0;
-}
-
-void print(Head *head, int n)
-{
-    int i, j;
-    int aux[head->size];
-    Node *node = head->begin;
-
-    for (i = 0; i < head->size; i++)
-    {
-        aux[i] = node->c;
-        node = node->next;
-    }
-
-    mergeSort(aux, 0, head->size - 1);
-
-    for (j = 0; j < n; j++)
-        printf("%d ", aux[j]);
-
     printf("\n");
-    return;
-}
-
-void aloca(Head *head, int n)
-{
-    pushLink(head, n);
 }
 
 int main()
 {
-    Head head;
-    createHead(&head);
-    int n1, n2;
+    int v[101];
+    int n1, n2, placas = 0;
+
+    // extrair dados
     while (scanf("%d %d", &n1, &n2) != EOF)
     {
         if (n1 == 1)
-            aloca(&head, n2);
-        else
-            print(&head, n2);
+        {
+            placas = insere(v, n2, placas);
+        }
+        if (n1 == 2)
+        {
+            printa(v, n2, placas);
+        }
     }
     return 0;
 }
