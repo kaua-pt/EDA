@@ -11,7 +11,7 @@
         Item t = a; \
         a = b;      \
         b = t;      \
-        }
+    }
 #define cmpswap(a, b) \
     if (less(b, a))   \
     swap(a, b)
