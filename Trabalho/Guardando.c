@@ -2,53 +2,45 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_N 100005
-#define MAX_M 420000
-
-int existe(char *str1, char *str2, int id)
+int extrair(int **v)
 {
-    int i, j = 0;
-
-    for (i = id; i < strlen(str1); i++)
+    int n = 0;
+    char input[4200000];
+    while (scanf(" %s", input) == 1)
     {
-        if (str1[i] == str2[j])
-            j++;
-        else
-            j = 0;
-        if (j == strlen(str2))
-            return i;
+        v[n] = malloc((strlen(input) + 1) * sizeof(char));
+        strcpy(v[n], input);
+        n++;
     }
-    return -1;
+
+    return n;
 }
 
-int ocorrencias(char *str1, char *str2)
+int solve(char *grandao, char *substr)
 {
-    int quantidade = 0, indice = 0;
-    do
+    int rep = 0;
+    char *strLocal = strstr(grandao, substr);
+    while (strLocal != 0)
     {
-        indice = existe(str1, str2, indice);
-        if (indice != -1)
-            quantidade++;
-    } while (indice != -1);
+        strLocal++;
+        strLocal = strstr(strLocal, substr);
+        rep++;
+    }
 
-    return quantidade;
+    return rep;
 }
 
 int main()
 {
-    char **strings = malloc(MAX_N * sizeof(char *));
-    char str[MAX_M];
-    int n = 0;
+    char **v = malloc(100005 * sizeof(char *));
+    int numstr, i;
 
-    while (scanf("%s", str) != EOF)
+    numstr = extrair(v);
+
+    for (i = 0; i < numstr - 1; i++)
     {
-        strings[n] = (char *)malloc((strlen(str) + 1) * sizeof(char));
-        strcpy(strings[n], str);
+        printf("%d\n", solve(v[i], v[numstr - 1]));
     }
-
-    int i;
-    for (i = 0; i < n - 1; i++)
-        printf("%d\n", ocorrencias(strings[i], strings[n - 1]));
 
     return 0;
 }
