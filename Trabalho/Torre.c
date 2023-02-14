@@ -1,11 +1,15 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+void reveal(char **map)
+{
+}
 
 int main()
 {
-    int alt, larg, torres, i;
+    int alt, larg, torres, i, j, num;
     scanf("%d %d", &alt, &larg);
     char camp[alt][larg];
-    char input[(int)1e3];
 
     for (i = 0; i < alt; i++)
     {
@@ -16,6 +20,12 @@ int main()
             if (camp[i][j] == 't')
                 torres++;
         }
+    }
+
+    for (j = 0; j < torres; j++)
+    {
+        scanf("%d", &num);
+        revel(camp);
     }
 
     return 0;
