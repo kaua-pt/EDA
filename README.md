@@ -9,8 +9,7 @@ Este repositório é dedicado as listas de EDA1 do semestre 2022.2 do professor 
   - Básico de C
   - Recursividade
   - Algoritmos de ordenação
-  - Tipos de dados : Pilhas, listas, etc
-  - Tabela Hash
+  - Tipos de dados : Pilha,fila e listas 
 
 ## :hammer: Tecnologia
 
