@@ -38,6 +38,10 @@
     Existe ?       1              d(v)
     Vizinhos       V              d(v)
 
+    Um grafo contém várias "partes", subdivisões que podemos chamar de componentes conexos,Então
+    temos o problema de busca. Temos a busca em profundidade,na qual avançamos o máximo o possível
+    se não encontrarmos o alvo, recuamos o minimo o possivel e pegamos um caminho não visitado
+
 */
 typedef struct
 {
